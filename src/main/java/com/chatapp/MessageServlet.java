@@ -72,7 +72,7 @@ public class MessageServlet extends HttpServlet {
         }
 
         public long getTimestamp() {
-            return timestamp; #
+            return timestamp; 
         }
     }
 
