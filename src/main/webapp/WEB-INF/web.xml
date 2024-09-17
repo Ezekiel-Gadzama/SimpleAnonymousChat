@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee 
+                             https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd" 
+         version="5.0">
+
+  <display-name>ChatApplication</display-name>
+
+  <welcome-file-list>
+    <welcome-file>chatApp.html</welcome-file>
+  </welcome-file-list>
+
+  <!-- Define the MessageServlet -->
+  <servlet>
+    <description>Servlet for handling messages</description>
+    <display-name>MessageServlet</display-name>
+    <servlet-name>MessageServlet</servlet-name>
+    <servlet-class>com.chatapp.MessageServlet</servlet-class>
+  </servlet>
+
+  <!-- Map MessageServlet to /messages -->
+  <servlet-mapping>
+    <servlet-name>MessageServlet</servlet-name>
+    <url-pattern>/messages/*</url-pattern>
+  </servlet-mapping>
+  
+</web-app>
