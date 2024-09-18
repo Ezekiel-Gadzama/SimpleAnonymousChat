@@ -29,12 +29,12 @@ Make sure you have the required dependencies installed (e.g., requests, subproce
 
 
 ## UI: chatApp.html
-
+###### src/main/webapp/chatApp.html
 This HTML file represents the chat application's user interface. It includes:
 A text input for sending messages.
 A button for retrieving the total message count.
 A simple design to display messages in real-time using JavaScript polling.
-###### src/main/webapp/chatApp.html
+
 
 ## Running the Project
 Set up Tomcat Server:
