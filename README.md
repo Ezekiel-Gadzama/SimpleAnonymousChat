@@ -43,7 +43,7 @@ Ensure Apache Tomcat is installed and set up in your IDE (e.g., Eclipse or VSCod
 Deploy the project to the Tomcat server and start it.
 Start the Application:
 
-After deploying, navigate to the chat application's main page. The homepage (chatApp.html) will automatically load, allowing you to interact with the chat.
+After deploying, navigate to the chat application's main page by visiting http://localhost:8080/ChatApplication/chatApp.html. The homepage will automatically load, allowing you to interact with the chat.
 Running Tests:
 
 You can run the test.py script to test the application's performance and recoverability. The script interacts with the /messages endpoint to POST and GET messages.
