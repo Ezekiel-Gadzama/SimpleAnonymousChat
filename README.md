@@ -10,6 +10,6 @@ This servlet handles sending and retrieving messages.
 To run the servlet, you need to restart the server. You can do this by right-clicking on the server in your IDE and selecting "Restart". Make sure the Tomcat server is set up correctly in your IDE (e.g., Eclipse or VSCode) and running before interacting with the application.
 Dependencies: pom.xml
 
-This file contains the dependencies for the project. You can install these dependencies using Maven with the following command:
-## mvn install
+This file contains the dependencies for the project. You can install these dependencies using Maven with ### the following command:
+### mvn install
 
