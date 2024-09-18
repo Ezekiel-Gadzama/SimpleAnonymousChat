@@ -19,3 +19,37 @@ This file defines the servlet mappings. The MessageServlet is mapped to the /mes
 The MessageServlet is responsible for handling message-related operations.
 The welcome-file ensures that chatApp.html is loaded as the homepage when the server starts.
 The servlet mapping section maps the URL /messages/* to the MessageServlet, meaning any requests made to this URL will be handled by that servlet.
+
+## Test Script: test.py
+
+This Python script tests the time behavior, recoverability, and code complexity of the chat application. To run the script, you can use the terminal with:
+#### python test.py
+Make sure you have the required dependencies installed (e.g., requests, subprocess).
+
+
+
+## UI: chatApp.html
+
+This HTML file represents the chat application's user interface. It includes:
+A text input for sending messages.
+A button for retrieving the total message count.
+A simple design to display messages in real-time using JavaScript polling.
+
+
+## Running the Project
+Set up Tomcat Server:
+
+Ensure Apache Tomcat is installed and set up in your IDE (e.g., Eclipse or VSCode).
+Deploy the project to the Tomcat server and start it.
+Start the Application:
+
+After deploying, navigate to the chat application's main page. The homepage (chatApp.html) will automatically load, allowing you to interact with the chat.
+Running Tests:
+
+You can run the test.py script to test the application's performance and recoverability. The script interacts with the /messages endpoint to POST and GET messages.
+Checkstyle:
+
+Code complexity can be checked using Checkstyle. Make sure you have the Checkstyle JAR installed, then run the following command to check the code:
+##### java -jar checkstyle-10.18.1-all.jar -c google_checks.xml src/main/java/com/chatapp
+
+
