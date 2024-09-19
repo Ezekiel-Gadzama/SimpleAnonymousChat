@@ -85,6 +85,10 @@ public class MessageServlet extends HttpServlet {
     }
   }
 
+  /**
+   * MessageList contains all messages for the chat application.
+   */
+
   private static class MessageList {
     private final List<Message> messages;
 

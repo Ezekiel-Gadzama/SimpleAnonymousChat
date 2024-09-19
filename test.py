@@ -6,70 +6,108 @@ BASE_URL = 'http://localhost:8080/ChatApplication/messages'
 MESSAGE = 'Test message for testing'
 RESTART_WAIT_TIME = 10  # Time to wait for server restart, adjust as needed
 
-# Function to test time behavior
-def test_time_behavior():
+def time_behavior_fitness_function():
     print("Testing time behavior...")
     
     # Test POST response time
     start_time = time.time()
     response = requests.post(BASE_URL, data={'message': MESSAGE})
-    end_time = time.time()
-    response_time = end_time - start_time
-    print(f'POST response time: {response_time:.3f} seconds')
-    assert response.status_code == 200
+    post_response_time = time.time() - start_time
+    if response.status_code != 200:
+        return {'post_response_time': post_response_time, 'status': 'failed'}
 
     # Test GET response time
     start_time = time.time()
     response = requests.get(f'{BASE_URL}/count')
-    end_time = time.time()
-    response_time = end_time - start_time
-    print(f'GET count response time: {response_time:.3f} seconds')
-    assert response.status_code == 200
-    assert 'messageCount' in response.json()
+    get_response_time = time.time() - start_time
+    if response.status_code != 200 or 'messageCount' not in response.json():
+        return {'get_response_time': get_response_time, 'status': 'failed'}
 
-# Function to test recoverability
-def test_recoverability():
+    return {
+        'post_response_time': post_response_time,
+        'get_response_time': get_response_time,
+        'status': 'passed'
+    }
+
+def recoverability_fitness_function():
     print("Testing server recoverability...")
-    
+
     def post_message():
-        response = requests.post(BASE_URL, data={'message': MESSAGE})
-        return response
+        requests.post(BASE_URL, data={'message': MESSAGE})
 
     def get_message_count():
         response = requests.get(f'{BASE_URL}/count')
-        return response.json()['messageCount']
+        return response.json().get('messageCount')
 
-    # Post a message and get the message count
+    def simulate_server_crash():
+        print("Simulating server crash...")
+        crash_url = 'http://localhost:8080/ChatApplication/crash'
+        start_time = time.time()
+        try:
+            requests.get(crash_url)  # Trigger the crash
+        except requests.RequestException as e:
+            print(f"Error simulating server crash: {e}")
+        return time.time() - start_time
+
     post_message()
     initial_count = get_message_count()
-    print(f'Initial message count: {initial_count}')
+    crash_time = simulate_server_crash()
 
-    # Simulate server restart
-    print("Restarting server...")
-    time.sleep(RESTART_WAIT_TIME)  # Adjust based on your server restart time
+    # Wait for server to recover
+    print("Waiting for server to recover...")
+    start_recovery_time = time.time()
+    recovery_time = None
+    while recovery_time is None:
+        try:
+            final_count = get_message_count()
+            if final_count == initial_count:
+                recovery_time = time.time() - start_recovery_time
+            else:
+                time.sleep(1)  # Wait before retrying
+        except requests.RequestException:
+            time.sleep(1)  # Wait before retrying
 
-    # Verify message count after server restart
-    final_count = get_message_count()
-    print(f'Final message count: {final_count}')
-    assert final_count == initial_count
+    return {
+        'crash_time': crash_time,
+        'recovery_time': recovery_time,
+        'status': 'passed'
+    }
 
-# Function to check code complexity (for Java code)
-def check_code_complexity():
+def maintainability_fitness_function():
     print("Checking code complexity...")
 
     # Full path to the Checkstyle JAR file
     checkstyle_jar_path = 'C:/Users/ezeki/checkstyle-10.18.1-all.jar'
-
-    # Run Checkstyle with the full path to the JAR file
     command = ['java', '-jar', checkstyle_jar_path, '-c', 'google_checks.xml', 'src/main/java/com/chatapp']
     result = subprocess.run(command, capture_output=True, text=True)
 
-    print(result.stdout)
-    if result.stderr:
-        print("Errors:")
-        print(result.stderr)
+    # Save the result in a file or process it as needed
+    report_path = 'checkstyle_report.txt'
+    with open(report_path, 'w') as file:
+        file.write(result.stdout)
+        if result.stderr:
+            file.write("\nErrors:\n")
+            file.write(result.stderr)
+
+    return {
+        'report_path': report_path,
+        'status': 'completed'
+    }
 
 if __name__ == '__main__':
-    test_time_behavior()
-    test_recoverability()
-    check_code_complexity()
+    # Run and print results for time behavior
+    time_behavior_results = time_behavior_fitness_function()
+    print(f"POST Response Time: {time_behavior_results['post_response_time']:.3f} seconds")
+    print(f"GET Response Time: {time_behavior_results['get_response_time']:.3f} seconds")
+    print(f"Status: {time_behavior_results['status']}")
+    
+    # Run and print results for recoverability
+    recoverability_results = recoverability_fitness_function()
+    print(f"Time to Simulate Crash: {recoverability_results['crash_time']:.3f} seconds")
+    print(f"Time to Recover: {recoverability_results['recovery_time']:.3f} seconds")
+    print(f"Status: {recoverability_results['status']}")
+
+    # Run and print results for maintainability
+    maintainability_results = maintainability_fitness_function()
+    print(f"Checkstyle Report Saved To: {maintainability_results['report_path']}")
+    print(f"Status: {maintainability_results['status']}")
