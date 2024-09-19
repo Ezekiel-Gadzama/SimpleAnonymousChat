@@ -15,41 +15,44 @@ This file contains the dependencies for the project. You can install these depen
 
 ### Servlet Mapping Configuration: web.xml
 
-This file defines the servlet mappings. The MessageServlet is mapped to the /messages/* URL pattern. Here's a breakdown of the key parts:
-The MessageServlet is responsible for handling message-related operations.
-The welcome-file ensures that chatApp.html is loaded as the homepage when the server starts.
-The servlet mapping section maps the URL /messages/* to the MessageServlet, meaning any requests made to this URL will be handled by that servlet.
+This file defines the servlet mappings:
 
-## Test Script: test.py
-
-This Python script tests the time behavior, recoverability, and code complexity of the chat application. To run the script, you can use the terminal with:
-#### python test.py
-Make sure you have the required dependencies installed (e.g., requests, subprocess).
-
+The MessageServlet is mapped to the /messages/* URL pattern, handling message-related operations.
+The welcome-file element ensures that chatApp.html is loaded as the homepage when the server starts.
+The servlet mapping section maps the URL /messages/* to the MessageServlet, so any requests made to this URL will be handled by that servlet.
 
 
 ## UI: chatApp.html
-###### src/main/webapp/chatApp.html
-This HTML file represents the chat application's user interface. It includes:
-A text input for sending messages.
-A button for retrieving the total message count.
-A simple design to display messages in real-time using JavaScript polling.
+Located at src/main/webapp/chatApp.html, this HTML file represents the chat application's user interface:
 
+Includes a text input for sending messages.
+A button for retrieving the total message count.
+A simple design to display messages in real-time using JavaScript polling
 
 ## Running the Project
-Set up Tomcat Server:
-
-Ensure Apache Tomcat is installed and set up in your IDE (e.g., Eclipse or VSCode).
+Set up Tomcat Server
+Ensure Apache Tomcat v10.1.26 is installed.
+Set up Tomcat in your IDE (e.g., Eclipse or VSCode).
 Deploy the project to the Tomcat server and start it.
-Start the Application:
 
-After deploying, navigate to the chat application's main page by visiting http://localhost:8080/ChatApplication/chatApp.html. The homepage will automatically load, allowing you to interact with the chat.
-Running Tests:
+## Start the Application
+After deploying, navigate to the chat application's main page by visiting http://localhost:8080/ChatApplication/chatApp.html.
+The homepage will automatically load, allowing you to interact with the chat.
 
-You can run the test.py script to test the application's performance and recoverability. The script interacts with the /messages endpoint to POST and GET messages.
-Checkstyle:
+## Running Tests
+Run the test.py script to test the application's performance and recoverability. The script interacts with the /messages endpoint to POST and GET messages. Execute the script using:
+#### python test.py
+Ensure you have the required dependencies installed (e.g., requests, subprocess).
 
-Code complexity can be checked using Checkstyle. Make sure you have the Checkstyle JAR installed, then run the following command to check the code:
+## Code Quality
+### Checkstyle
+Code complexity can be checked using Checkstyle. Make sure you have the Checkstyle JAR (version 10.18.1) installed. Run the following command to check the code:
 ##### java -jar checkstyle-10.18.1-all.jar -c google_checks.xml src/main/java/com/chatapp
 
 
+## Additional Notes
+##### Install the latest Java JDK (version 22.0.1).
+##### Install Apache Tomcat (version 10.1.26).
+##### Install Apache Maven.
+##### Install the Server Management Extension.
+##### Configure Tomcat
